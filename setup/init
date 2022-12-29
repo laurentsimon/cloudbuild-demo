@@ -7,9 +7,9 @@ set -o errexit
 set -o pipefail
 
 # configure defaults 
-gcloud config set project $PROJECT_ID
-gcloud config set artifacts/location $REGION
-gcloud config set deploy/region $REGION
+gcloud config set project "$PROJECT_ID"
+gcloud config set artifacts/location "$REGION"
+gcloud config set deploy/region "$REGION"
 
 # enables APIs
 gcloud services enable \
@@ -25,38 +25,38 @@ gcloud services enable \
   run.googleapis.com \
 
 # set up IAM roles for Cloud Build service account
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  --member serviceAccount:"$PROJECT_NUMBER"@cloudbuild.gserviceaccount.com \
   --role roles/containeranalysis.notes.editor
 
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  --member serviceAccount:"$PROJECT_NUMBER"@cloudbuild.gserviceaccount.com \
   --role roles/containeranalysis.notes.occurrences.viewer
 
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  --member serviceAccount:"$PROJECT_NUMBER"@cloudbuild.gserviceaccount.com \
   --role roles/containeranalysis.occurrences.editor
 
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  --member serviceAccount:"$PROJECT_NUMBER"@cloudbuild.gserviceaccount.com \
   --role roles/cloudkms.signer
 
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com \
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+    --member serviceAccount:"$PROJECT_NUMBER"-compute@developer.gserviceaccount.com \
     --role roles/clouddeploy.releaser
 
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com \
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+    --member serviceAccount:"$PROJECT_NUMBER"-compute@developer.gserviceaccount.com \
     --role roles/iam.serviceAccountUser
 
 # add the clouddeploy.jobRunner role to your compute service account
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com \
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+    --member serviceAccount:"$PROJECT_NUMBER"-compute@developer.gserviceaccount.com \
     --role roles/clouddeploy.jobRunner
 
 # add the Kubernetes developer permission:
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com \
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+    --member serviceAccount:"$PROJECT_NUMBER"-compute@developer.gserviceaccount.com \
     --role roles/container.developer
 
 # update templates 
