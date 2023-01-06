@@ -133,10 +133,10 @@ Deploy sample image that **was not built in GCP**. First, get the configuration 
 . setup/config
 ```
 
-Next, get the `test` cluster credentials:
+Next, set the cluster:
 
 ```shell
-gcloud container clusters get-credentials demo-test --region $CLUSTER_ZONE
+kubectl config set-cluster demo-test
 ```
 
 Then `apply` command will work because Kubernetes is declarative but as we will see in a minute, the workflow will fail to deploy.
@@ -158,7 +158,7 @@ kubectl apply -f test/non-gcp-built-image.yaml
 
 * Show delivery pipeline config `app/clouddeploy.yaml`
 * Make some code change
-  * Make sure you bump version number in `.version`
+  * Make sure you bump version number in `app/.version`
 * Git add, commit, push:
 
 ```shell

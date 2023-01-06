@@ -10,6 +10,8 @@ set -o pipefail
 gcloud config set project $PROJECT_ID
 gcloud config set artifacts/location $REGION
 gcloud config set deploy/region $REGION
+gcloud config set compute/region $REGION
+gcloud config set compute/zone $CLUSTER_ZONE
 
 echo "Iniatializing project $PROJECT_ID in region $REGION..."
 
@@ -21,12 +23,13 @@ gcloud services enable \
   clouddeploy.googleapis.com \
   cloudkms.googleapis.com \
   cloudresourcemanager.googleapis.com \
+  compute.googleapis.com \
   container.googleapis.com \
   containerregistry.googleapis.com \
   containerscanning.googleapis.com \
   containersecurity.googleapis.com \
   run.googleapis.com \
-  servicenetworking.googleapis.com
+  servicenetworking.googleapis.com 
 
 
 # set up IAM roles for Cloud Build service account
